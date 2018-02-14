@@ -2,6 +2,9 @@ package scripts;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +13,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -22,13 +27,16 @@ public class JpetTest {
 	private By textToCheck = By.xpath(".//div[@id='PoweredBy']/a");
 	
 	@Before
-	public void setUp() {
-		FirefoxOptions options = new FirefoxOptions().setProfile(new FirefoxProfile());
-		options.addPreference("browser.tabs.remote.autostart", false);
+	public void setUp() throws MalformedURLException {
+//		FirefoxOptions options = new FirefoxOptions().setProfile(new FirefoxProfile());
+//		options.addPreference("browser.tabs.remote.autostart", false);
 		
-		System.setProperty("webdriver.gecko.driver", "C:/Users/Formation/Downloads/geckodriver-v0.19.1-win64/geckodriver.exe");
+//		System.setProperty("webdriver.gecko.driver", "C:/Users/Formation/Downloads/geckodriver-v0.19.1-win64/geckodriver.exe");
 		
-		driver = new FirefoxDriver(options);
+//		driver = new FirefoxDriver(options);
+		
+		DesiredCapabilities cap =DesiredCapabilities.firefox();
+		driver = new  RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),cap);
 		
 		driver.get("http://localhost:8090/jpetstore/");
 
